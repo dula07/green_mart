@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../routes/routes.dart';
+import 'category_products_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -93,7 +94,9 @@ class HomeScreen extends StatelessWidget {
                         child: CategoryCard(
                           categoryName: "Foods & Drinks",
                           categoryImage: "assets/images/dish.png",
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(() => const CategoryProductsScreen(category: "Foods & Drinks"));
+                          },
                         ),
                       ),
                       SizedBox(
@@ -101,7 +104,9 @@ class HomeScreen extends StatelessWidget {
                         child: CategoryCard(
                           categoryName: "Books & Stationary",
                           categoryImage: "assets/images/book.png",
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(() => const CategoryProductsScreen(category: "Books & Stationary"));
+                          },
                         ),
                       ),
                     ],
@@ -116,7 +121,9 @@ class HomeScreen extends StatelessWidget {
                         child: CategoryCard(
                           categoryName: "T-shirts & Bangles",
                           categoryImage: "assets/images/tshirt.png",
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(() => const CategoryProductsScreen(category: "T-shirts & Bangles"));
+                          },
                         ),
                       ),
                       SizedBox(
@@ -124,7 +131,9 @@ class HomeScreen extends StatelessWidget {
                         child: CategoryCard(
                           categoryName: "Other",
                           categoryImage: "assets/images/more.png",
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(() => const CategoryProductsScreen(category: "Other"));
+                          },
                         ),
                       ),
                     ],

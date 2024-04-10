@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/cart_controller.dart';
+import '../models/cart_model.dart';
 import '../models/product_model.dart';
 import '../routes/routes.dart';
 
@@ -14,7 +16,49 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CartController cartController = Get.find<CartController>();
+
     return Scaffold(
+      floatingActionButton: Stack(
+        alignment: Alignment.topRight,
+        children: [
+          FloatingActionButton(
+            backgroundColor: const Color(0xFF124819),
+            child: const Icon(
+              Icons.shopping_cart,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Get.offAndToNamed(Routes.getCartScreen());
+            },
+          ),
+          Obx(() {
+            int cartItemCount = cartController.cartItems.length;
+            return cartItemCount > 0
+                ? Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 2),
+                    ),
+                    constraints: const BoxConstraints(
+                      minWidth: 16,
+                      minHeight: 16,
+                    ),
+                    child: Text(
+                      '$cartItemCount',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                : const SizedBox.shrink();
+          }),
+        ],
+      ),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(Get.height * 0.15),
         child: AppBar(
@@ -137,7 +181,34 @@ class ProductDetailScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      final cartController = Get.find<CartController>();
+                      CartItem productItem = CartItem(
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                      );
+
+                      bool isItemInCart = cartController.cartItems.any((item) => item.id == productItem.id);
+                      if (isItemInCart) {
+                        Get.snackbar(
+                          'Item already in cart',
+                          '${product.name} is already added to your cart.',
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.redAccent,
+                          colorText: Colors.white,
+                        );
+                      } else {
+                        cartController.addItem(productItem);
+                        Get.snackbar(
+                          'Item added to cart',
+                          '${product.name} has been added to your cart.',
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.green,
+                          colorText: Colors.white,
+                        );
+                      }
+                    },
                     child: const Text(
                       "Add to Cart",
                     ),

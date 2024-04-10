@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/cart_controller.dart';
 import '../routes/routes.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -20,7 +21,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
     String email = user?.email ?? "N/A";
     bool isEmailVerified = user?.emailVerified ?? false;
 
+    final CartController cartController = Get.find<CartController>();
+
     return Scaffold(
+      floatingActionButton: Stack(
+        alignment: Alignment.topRight,
+        children: [
+          FloatingActionButton(
+            backgroundColor: const Color(0xFF124819),
+            child: const Icon(
+              Icons.shopping_cart,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Get.offAndToNamed(Routes.getCartScreen());
+            },
+          ),
+          Obx(() {
+            int cartItemCount = cartController.cartItems.length;
+            return cartItemCount > 0
+                ? Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 2),
+                    ),
+                    constraints: const BoxConstraints(
+                      minWidth: 16,
+                      minHeight: 16,
+                    ),
+                    child: Text(
+                      '$cartItemCount',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                : const SizedBox.shrink();
+          }),
+        ],
+      ),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(Get.height * 0.15),
         child: AppBar(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/cart_controller.dart';
 import '../controllers/firestore_controller.dart';
 import '../models/product_model.dart';
 import '../routes/routes.dart';
@@ -24,7 +25,49 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final CartController cartController = Get.find<CartController>();
+
     return Scaffold(
+      floatingActionButton: Stack(
+        alignment: Alignment.topRight,
+        children: [
+          FloatingActionButton(
+            backgroundColor: const Color(0xFF124819),
+            child: const Icon(
+              Icons.shopping_cart,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Get.offAndToNamed(Routes.getCartScreen());
+            },
+          ),
+          Obx(() {
+            int cartItemCount = cartController.cartItems.length;
+            return cartItemCount > 0
+                ? Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 2),
+                    ),
+                    constraints: const BoxConstraints(
+                      minWidth: 16,
+                      minHeight: 16,
+                    ),
+                    child: Text(
+                      '$cartItemCount',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                : const SizedBox.shrink();
+          }),
+        ],
+      ),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(Get.height * 0.15),
         child: AppBar(
@@ -123,6 +166,7 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
                 ),
               );
             } else {
+              // Show a text message when no products are found
               return const Center(child: Text('No products found'));
             }
           },

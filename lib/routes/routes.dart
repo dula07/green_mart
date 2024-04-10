@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-// import '../views/product_search_screen.dart';
+import '../views/product_search_screen.dart';
 import '../views/registration_screen.dart';
 import '../views/login_screen.dart';
 import '../views/navigation_bar.dart';
@@ -55,9 +55,9 @@ class Routes {
         initialIndex: 3,
       ),
     ),
-    // GetPage(
-    //   name: searchScreen,
-    //   page: () => ProductSearchBarScreen(),
-    // ),
+    GetPage(
+      name: searchScreen,
+      page: () => ProductSearchBarScreen(),
+    ),
   ];
 }

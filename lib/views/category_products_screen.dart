@@ -86,6 +86,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+              // Check if snapshot has data and is not empty
               final products = snapshot.data!;
               return RawScrollbar(
                 thumbVisibility: true,
@@ -130,6 +131,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                 ),
               );
             } else {
+              // Show a text message when no products are found
               return const Center(child: Text('No products found in this category.'));
             }
           },

@@ -3,12 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 
-// import '/controllers/product_search_bar_controller.dart';
-// import 'controllers/cart_controller.dart';
-// import 'controllers/firestore_controller.dart';
+import '/controllers/product_search_bar_controller.dart';
+import 'controllers/cart_controller.dart';
+import 'controllers/firestore_controller.dart';
 import 'views/login_screen.dart';
-// import 'routes/routes.dart';
-// import 'views/navigation_bar.dart' as nav;
+import 'routes/routes.dart';
+import 'views/navigation_bar.dart' as nav;
 
 Future main() async {
   // Initialize firebase
@@ -16,9 +16,9 @@ Future main() async {
   await Firebase.initializeApp();
 
   // Initialize controllers
-  // Get.put(FireStoreController());
-  // Get.put(CartController());
-  // Get.put(ProductsSearchBarController());
+  Get.put(FireStoreController());
+  Get.put(CartController());
+  Get.put(ProductsSearchBarController());
 
   runApp(const MyApp());
 }
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      //getPages: Routes.routes,
+      getPages: Routes.routes,
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -61,10 +61,9 @@ class PageSwitcher extends StatelessWidget {
               );
             } else if (snapshot.hasData) {
               // Home screen
-              // return nav.NavigationBar(
-              //   initialIndex: 0,
-              // );
-              return Container();
+              return nav.NavigationBar(
+                initialIndex: 0,
+              );
             } else {
               return const LoginScreen();
             }

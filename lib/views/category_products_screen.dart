@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../controllers/firestore_controller.dart';
 import '../models/product_model.dart';
 import '../routes/routes.dart';
+import 'product_details_screen.dart';
 
 class CategoryProductsScreen extends StatefulWidget {
   final String category;
@@ -113,7 +114,14 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                             title: Text(product.name),
                             subtitle: Text(product.description),
                             trailing: Text('LKR. ${product.price.toStringAsFixed(2)}'),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductDetailScreen(product: product),
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ],

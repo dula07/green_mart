@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../controllers/firestore_controller.dart';
 import '../models/product_model.dart';
 import '../routes/routes.dart';
+import 'product_details_screen.dart';
 
 class AllProductsScreen extends StatefulWidget {
   const AllProductsScreen({super.key});
@@ -81,6 +82,7 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+              // Ensure there's data and it's not empty
               final productsList = snapshot.data!;
               return RawScrollbar(
                 thumbVisibility: true,
@@ -107,7 +109,14 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
                         title: Text(product.name),
                         subtitle: Text(product.description),
                         trailing: Text('LKR. ${product.price.toStringAsFixed(2)}'),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductDetailScreen(product: product),
+                            ),
+                          );
+                        },
                       ),
                     );
                   },

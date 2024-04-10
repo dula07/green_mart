@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 // import '../views/product_search_screen.dart';
 import '../views/registration_screen.dart';
 import '../views/login_screen.dart';
-// import '../views/navigation_bar.dart';
+import '../views/navigation_bar.dart';
 
 class Routes {
   static const String registrationScreen = '/registration-screen';
@@ -31,30 +31,30 @@ class Routes {
       name: loginScreen,
       page: () => const LoginScreen(),
     ),
-    // GetPage(
-    //   name: homeScreen,
-    //   page: () => NavigationBar(
-    //     initialIndex: 0,
-    //   ),
-    // ),
-    // GetPage(
-    //   name: productsScreen,
-    //   page: () => NavigationBar(
-    //     initialIndex: 1,
-    //   ),
-    // ),
-    // GetPage(
-    //   name: cartScreen,
-    //   page: () => NavigationBar(
-    //     initialIndex: 2,
-    //   ),
-    // ),
-    // GetPage(
-    //   name: profileScreen,
-    //   page: () => NavigationBar(
-    //     initialIndex: 3,
-    //   ),
-    // ),
+    GetPage(
+      name: homeScreen,
+      page: () => NavigationBar(
+        initialIndex: 0,
+      ),
+    ),
+    GetPage(
+      name: productsScreen,
+      page: () => NavigationBar(
+        initialIndex: 1,
+      ),
+    ),
+    GetPage(
+      name: cartScreen,
+      page: () => NavigationBar(
+        initialIndex: 2,
+      ),
+    ),
+    GetPage(
+      name: profileScreen,
+      page: () => NavigationBar(
+        initialIndex: 3,
+      ),
+    ),
     // GetPage(
     //   name: searchScreen,
     //   page: () => ProductSearchBarScreen(),
